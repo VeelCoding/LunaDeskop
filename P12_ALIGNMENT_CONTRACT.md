@@ -1,9 +1,9 @@
 # Luna Desktop P12 Alignment Contract
 
 Date: 2026-10-15
-Status: ACTIVE / PRE-P12 ALIGNMENT / P12 NOT STARTED
+Status: ACTIVE / P12 STARTED / P12-0 BASELINE IDENTITY ACTIVE
 
-This document is the canonical Git-side starting contract for the next Luna Desktop line. It exists to prevent future chats, contributors, or recovered contexts from silently resuming obsolete Desktop assumptions.
+This document is the canonical Git-side starting contract for the Luna Desktop P12 line. It exists to prevent future chats, contributors, or recovered contexts from silently resuming obsolete Desktop assumptions.
 
 ## 1. Canonical Desktop identity
 
@@ -13,7 +13,7 @@ Canonical local workspace = C:\Users\istem\Projects\LunaDesktop
 Previous Desktop repository = VeelCoding/Luna-Deskop-v0.1 (SUPERSEDED / DO NOT AUTO-RESUME)
 ```
 
-The local Desktop workspace has been refreshed from the 2026-10-14 ChatGPT/Codex Desktop generation. Before any P12 implementation claim, establish exact current source/tree/runtime identity from that refreshed workspace.
+The local Desktop workspace has been refreshed from the 2026-10-14 ChatGPT/Codex Desktop generation. P12 has now started with a read-only baseline identity phase. Before any P12 implementation claim, establish exact current source/tree/runtime identity from that refreshed workspace.
 
 Historical 2026-09-30 Desktop source and archaeology are evidence only, not current source truth.
 
@@ -178,17 +178,32 @@ Core Desktop/Luna connectivity must not require plugin presence as a mandatory d
 
 Keep plugin capability additive rather than foundational so plugin work can be added without reopening the core Desktop authority seam.
 
-## 10. P12 start condition
+## 10. P12 current phase
 
-P12 is intentionally NOT STARTED by this document.
+P12 is now STARTED.
 
-Before P12 implementation:
+Current phase:
 
-1. complete the pre-P12 alignment with Murat and Luna-team proposals;
-2. establish exact current source/tree/runtime identity for the refreshed 2026-10-14 Desktop baseline;
-3. map current source responsibilities before removal or rewiring;
-4. identify the exact Desktop/Luna adapter seam;
-5. only then define the first P12 implementation gate.
+```text
+P12-0 = fresh Desktop baseline identity lock
+mode = read-only / no implementation mutation
+```
+
+P12-0 must:
+
+1. establish exact current Git/worktree identity for `C:\Users\istem\Projects\LunaDesktop`;
+2. fingerprint the refreshed source tree without mutating it;
+3. identify package/runtime entrypoints and current source topology from exact source;
+4. record which current files are product source versus generated/vendor/build material;
+5. preserve the responsibility boundary in this contract;
+6. avoid historical D-series assumptions until current source evidence is collected.
+
+After P12-0 is locked:
+
+1. map current source responsibilities before removal or rewiring;
+2. identify the exact Desktop/Luna adapter seam;
+3. define the first narrow vertical implementation gate;
+4. only then begin implementation mutation.
 
 No historical Desktop baseline may be treated as current truth without revalidation.
 
@@ -206,10 +221,10 @@ exact current refreshed Desktop source/runtime
 ## 12. Coordination
 
 - Luna team owns Luna aggregate source history/commit/push for the completed D21 MCP line.
-- `VeelCoding/LunaDeskop` is the new canonical Desktop Git repository.
+- `VeelCoding/LunaDeskop` is the canonical Desktop Git repository.
 - `C:\Users\istem\Projects\LunaDesktop` is the canonical local Desktop workspace.
 - Sol-B12 stores continuity and resume pointers; it does not outrank exact current source.
-- P12 remains in pre-alignment until an explicit start decision is made.
+- P12 is started, but implementation mutation is not authorized until P12-0 baseline identity and responsibility mapping are complete.
 
 ## Resume marker
 
@@ -220,6 +235,8 @@ Luna Desktop local = C:\Users\istem\Projects\LunaDesktop
 Desktop baseline = refreshed from 2026-10-14 ChatGPT/Codex Desktop
 historical 2026-09-30 archaeology = reference only
 I01 = OPEN / admission default OFF
-P12 = NOT STARTED
-NEXT = finish alignment -> exact refreshed source identity -> define first vertical P12 gate
+P12 = STARTED
+P12-0 = BASELINE IDENTITY ACTIVE
+implementation mutation = NOT STARTED
+NEXT = exact refreshed source identity -> responsibility map -> adapter seam -> first vertical implementation gate
 ```
