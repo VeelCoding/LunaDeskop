@@ -1,7 +1,7 @@
 # Luna Desktop P12 Alignment Contract
 
-Date: 2026-10-15
-Status: ACTIVE / P12 STARTED / P12-0 BASELINE LOCKED / P12-1 CLOSED/PASS / P12-2 FIRST VERTICAL CONTRACT ACTIVE
+Date: 2026-10-16
+Status: ACTIVE / P12 STARTED / P12-0 BASELINE LOCKED / P12-1 CLOSED/PASS / P12-2 FIRST VERTICAL DESIGN CLOSED / IMPLEMENTATION HOLD ACTIVE
 
 This document is the canonical Git-side starting contract for the Luna Desktop P12 line. It prevents obsolete Desktop assumptions from becoming current truth.
 
@@ -150,7 +150,7 @@ Current interrupt logic sends `turn/interrupt` but also performs local cleanup a
 
 ## 8. First integration slice / P12-2
 
-P12-2 is the first vertical contract and implementation gate. It is read-only contract construction first.
+P12-2 first-vertical design is now CLOSED. Its read-only contract construction chain completed without source mutation.
 
 Target lifecycle:
 
@@ -163,16 +163,70 @@ create task
 -> show authoritative final/recovery result
 ```
 
-Before implementation mutation, P12-2 must name for every step:
+P12-2 gate chain:
 
-1. Desktop A surface preserved;
-2. B adapter request/event mapping;
-3. Luna C authority owner;
-4. not-sent / unknown / failure semantics;
-5. current Desktop C behavior to delegate/remove/reconcile;
-6. validation evidence required before advancing.
+```text
+P12-2A = PASS
+P12-2B = PASS
+P12-2C = PASS
+P12-2D = PASS
+P12-2E = HOLD_PASS
+P12-2F = HOLD_PASS
+```
 
-Only after that contract is pinned may the first vertical implementation gate authorize source mutation.
+The design contract is closed, but implementation release is not granted.
+
+### D1 — I01 authority dependency
+
+```text
+I01 general acceptance = OPEN
+owner observation -> authoritative outcome/operations read-path acceptance = NOT_ESTABLISHED
+admission default = OFF / explicit opt-in / fail-closed
+P12 D1 release input = BLOCKED
+```
+
+Required release evidence:
+
+```text
+I01 general acceptance = CLOSED_PASS
+owner observations explicitly bound to authorized outcome/operations read path
+exact origin/scope preserved
+BODY_EXITED != completion
+BODY_EXITED != global quiescence
+BODY_EXITED != replay/resend permission
+admission remains explicit opt-in / fail-closed
+```
+
+Mere co-existence of BODY_ENTERED/BODY_EXITED records, `observe_outcome`, and Desktop `status` is not sufficient evidence of this binding.
+
+### D2 — exact-call approval product bridge
+
+```text
+runtime exact-call approval consumer = PRESENT
+runtime exact-call approval tests = PRESENT
+product ExactCallApproval.bind producer = 0
+product ExactCallApproval constructor producer = 0
+product exact_call_approvals injection = 0
+product bridge acceptance = ABSENT
+P12 D2 release input = BLOCKED
+```
+
+Required release evidence:
+
+```text
+runtime supplies exact current approval basis
+owner-facing exact-call approval request exists
+owner response binds one exact task/tool/call/basis
+approval enters Luna policy without broadening authority
+runtime rechecks fresh basis before effect
+stale basis requires reapproval
+NOT_SENT and OUTCOME_UNKNOWN remain distinct
+exact tests pass
+```
+
+Task/session authority approval and runtime exact-call approval remain separate layers.
+
+P12 must not implement duplicate task authority, duplicate running-cancel truth, a replacement I01 DesktopRuntimeSurface, a local final-result authority, or an UNKNOWN replay engine while either dependency remains blocked.
 
 ## 9. MCP recovery laws remain pinned
 
@@ -197,16 +251,24 @@ Plugin support remains additive/deferred. Core Desktop/Luna connectivity must no
 ```text
 P12-0 = CLOSED/PASS — locked packaged baseline identity
 P12-1 = CLOSED/PASS — current product responsibility map + exact adapter seam
-P12-2 = ACTIVE — first vertical contract / implementation gate
+P12-2 first vertical design = CLOSED
+P12-2F release-input contract = PINNED / HOLD_PASS
+D1 I01 release input = BLOCKED
+D2 exact-call product bridge release input = BLOCKED
+implementation hold = ACTIVE
+implementation authorization = NOT_GRANTED
 implementation source mutation = NOT STARTED
 ```
 
+Do not generate a new P12 archaeology/gate merely to make progress. Reevaluate only when D1 or D2 acceptance evidence changes. When both dependencies are accepted, perform one explicit final implementation-release review before any source mutation.
+
 ## 12. Coordination
 
-- Luna team owns aggregate Luna source history/commit/push for completed D21 MCP.
+- Luna team owns aggregate Luna source history/commit/push for completed D21 MCP and its own I01 line.
 - `VeelCoding/LunaDeskop` is the canonical Desktop Git-side contract/history repository.
 - `C:\Users\istem\Projects\LunaDesktop` is the locked current packaged-product evidence tree.
 - Sol-B12 stores continuity and resume pointers and never outranks exact current source/runtime evidence.
+- I01 team reports are supporting dependency evidence for P12; they do not redirect P12 into the I01 roadmap.
 
 ## Resume marker
 
@@ -217,9 +279,13 @@ Luna Desktop packaged baseline = C:\Users\istem\Projects\LunaDesktop
 package = OpenAI.Codex 26.1007.9446.0 x64
 P12-0 = CLOSED/PASS
 P12-1 = CLOSED/PASS
-P12-2 = FIRST VERTICAL CONTRACT ACTIVE
-historical D01-D50 = reference only
+P12-2 first vertical design = CLOSED
+P12-2F release-input contract = PINNED / HOLD_PASS
+D1 I01 release input = BLOCKED
+D2 exact-call product bridge release input = BLOCKED
 I01 = OPEN / admission default OFF
+implementation hold = ACTIVE
+implementation authorization = NOT_GRANTED
 implementation source mutation = NOT STARTED
-NEXT = pin first vertical Desktop/Luna contract -> define mutation gate -> only then implement
+NEXT = reevaluate only when D1 or D2 acceptance evidence changes; when both clear, run one final implementation-release review
 ```
