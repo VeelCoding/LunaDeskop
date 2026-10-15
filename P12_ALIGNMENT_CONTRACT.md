@@ -1,7 +1,7 @@
 # Luna Desktop P12 Alignment Contract
 
 Date: 2026-10-15
-Status: ACTIVE / P12 STARTED / P12-0 BASELINE LOCKED / P12-1 RESPONSIBILITY MAP ACTIVE
+Status: ACTIVE / P12 STARTED / P12-0 BASELINE LOCKED / P12-1 CLOSED/PASS / P12-2 FIRST VERTICAL CONTRACT ACTIVE
 
 This document is the canonical Git-side starting contract for the Luna Desktop P12 line. It prevents obsolete Desktop assumptions from becoming current truth.
 
@@ -15,7 +15,7 @@ Previous Desktop repository = VeelCoding/Luna-Deskop-v0.1 (SUPERSEDED / DO NOT A
 
 The local Desktop workspace was refreshed from the 2026-10-14 ChatGPT/Codex Desktop generation. It is a packaged AppX/MSIX-style product tree, not a Git checkout.
 
-P12-0 baseline identity is now CLOSED/PASS. Exact lock evidence is in `P12_BASELINE_LOCK.md`.
+P12-0 baseline identity is CLOSED/PASS. Exact lock evidence is in `P12_BASELINE_LOCK.md`.
 
 Primary locked package tuple:
 
@@ -29,15 +29,11 @@ app/resources/codex-command-runner.exe SHA256 = BDF5160289BC4D64BC2FA38C43F96795
 source/config tree SHA256 = 51B7E2ACE9D2FBA7B73DFF1BD0A9B99CF8EB42B47C451F38B2215D31233CC3C9
 ```
 
-`app/resources/default_app/` is classified as visible Electron default/fallback material, not automatically as the real product authority/bootstrap owner. Current product responsibility mapping must inspect the locked packaged payload, especially `app.asar` and manifest-declared executables.
+`app/resources/default_app/` remains classified as visible Electron default/fallback material, not the product authority/bootstrap owner.
 
-Historical 2026-09-30 Desktop source and archaeology are evidence only, not current source truth.
+Historical 2026-09-30 Desktop source and D01-D50 archaeology are evidence only, not current source truth.
 
-## 2. D-series / archaeology rule
-
-D01-D50 and archaeology preceding the D-series remain valuable historical evidence. They are not P12 implementation gates and must not be replayed mechanically onto the refreshed Desktop baseline.
-
-Truth order:
+## 2. Truth order
 
 ```text
 locked current packaged Desktop source/runtime
@@ -76,8 +72,6 @@ MCP closure != I01 provenance
 MCP closure != operations authority
 ```
 
-P12 must not infer I01 closure from MCP completion.
-
 ## 5. Responsibility boundary
 
 Desktop owns presentation and user interaction, including conversation surfaces, editors/inputs, panels, approval screens, progress/status projection, UI flow, and local rendering orchestration. Desktop must not silently become a second execution authority.
@@ -93,23 +87,72 @@ Luna event/state -> Desktop projection
 
 The adapter must not mint independent task, execution, approval, replay/resend, cancellation, or recovery authority.
 
-## 6. Preserve before removing
+## 6. P12-1 closed responsibility map
 
-Before changing/removing a current Desktop component, classify its actual responsibility:
+Exact current route:
 
 ```text
-A. presentation / screen-state orchestration
-B. protocol / transport / adapter plumbing
-C. execution / retry / recovery / authority decision
+renderer
+-> electronBridge / preload
+-> codex_desktop:message-from-view
+-> main ipcMain
+-> per-window/context handleMessage
+-> mcp-request message
+-> app-server connection/request client
+-> Codex app-server
 ```
 
-A and B may remain or be minimally adapted when they do not duplicate Luna authority. C must be delegated to, consumed from, or reconciled against Luna authority.
+Reverse:
 
-Do not strip current harness/orchestration code mechanically. Minimal necessary change is preferred.
+```text
+Codex app-server response/event
+-> Desktop main routing
+-> codex_desktop:message-for-view
+-> preload
+-> renderer projection
+```
 
-## 7. First integration slice
+Final responsibility classes:
 
-The first P12 implementation should prove one narrow vertical lifecycle:
+```text
+A = presentation / screen-state / approval UI / progress projection
+B = request dispatch / preload / IPC / request-response translation / transport plumbing
+C = execution admission / effect truth / authorization / approval authority / cancel truth / replay-retry-reconnect-recovery / outcome-unknown resolution / authoritative final state
+```
+
+A and B may remain or be minimally adapted when they do not duplicate Luna authority. C must delegate to, consume from, or reconcile against Luna authority.
+
+Responsibilities are not files. Current packaged bundles co-locate B and C behavior.
+
+P12-1 closure evidence:
+
+```text
+P12_1A_ASAR_MAP_V3 = PASS
+P12_1B_MAIN_PRELOAD_SEAM_V2 = PASS
+P12_1C_EXACT_ROUTER_REQUEST_OWNER_V1 = PASS
+P12_1D_RENDERER_VERTICAL_LIFECYCLE_SCAN_V1 = PASS
+P12_1E_REQUEST_DELIVERY_APPROVAL_STATE_MACHINE_V2 = PASS
+P12_1_RESPONSIBILITY_MAP = CLOSED_PASS
+```
+
+## 7. Critical current semantic findings
+
+Current Desktop explicitly separates known not-sent states from outcome-unknown/unconfirmed states for effect-bearing operations.
+
+```text
+NOT_SENT != OUTCOME_UNKNOWN
+UNKNOWN != safe replay
+```
+
+Current approval UI translates user choice to app-server reply methods; authoritative request resolution is separately observed through server/app-server notifications.
+
+Current interrupt logic sends `turn/interrupt` but also performs local cleanup and local state mutation. Under P12, neither local cleanup nor local state mutation may mint Luna cancellation/final truth.
+
+## 8. First integration slice / P12-2
+
+P12-2 is the first vertical contract and implementation gate. It is read-only contract construction first.
+
+Target lifecycle:
 
 ```text
 create task
@@ -120,9 +163,18 @@ create task
 -> show authoritative final/recovery result
 ```
 
-Only after that seam is sound should broader Desktop surfaces move through the same adapter/event model.
+Before implementation mutation, P12-2 must name for every step:
 
-## 8. MCP recovery laws remain pinned
+1. Desktop A surface preserved;
+2. B adapter request/event mapping;
+3. Luna C authority owner;
+4. not-sent / unknown / failure semantics;
+5. current Desktop C behavior to delegate/remove/reconcile;
+6. validation evidence required before advancing.
+
+Only after that contract is pinned may the first vertical implementation gate authorize source mutation.
+
+## 9. MCP recovery laws remain pinned
 
 ```text
 authentication != execution authority
@@ -136,23 +188,20 @@ no response != never sent
 rediscovery != recovery proof
 ```
 
-UNKNOWN must never be converted into automatic rerun/replay permission. Local Desktop close/cancel/timeout must not be rendered as proof of remote stop unless Luna owns evidence for that claim.
-
-## 9. Plugin independence
+## 10. Plugin independence
 
 Plugin support remains additive/deferred. Core Desktop/Luna connectivity must not require plugin presence unless a later exact contract explicitly changes this.
 
-## 10. Current P12 phase
+## 11. Current P12 phase
 
 ```text
 P12-0 = CLOSED/PASS — locked packaged baseline identity
-P12-1 = ACTIVE — current product responsibility map + exact adapter-seam discovery
-implementation mutation = NOT STARTED
+P12-1 = CLOSED/PASS — current product responsibility map + exact adapter seam
+P12-2 = ACTIVE — first vertical contract / implementation gate
+implementation source mutation = NOT STARTED
 ```
 
-P12-1 is read-only first. It must inspect the locked current product payload and map real owners before removal/rewiring. Only after the current responsibility map and exact Desktop/Luna seam are established may the first vertical implementation gate authorize mutation.
-
-## 11. Coordination
+## 12. Coordination
 
 - Luna team owns aggregate Luna source history/commit/push for completed D21 MCP.
 - `VeelCoding/LunaDeskop` is the canonical Desktop Git-side contract/history repository.
@@ -167,9 +216,10 @@ Luna Desktop remote = VeelCoding/LunaDeskop
 Luna Desktop packaged baseline = C:\Users\istem\Projects\LunaDesktop
 package = OpenAI.Codex 26.1007.9446.0 x64
 P12-0 = CLOSED/PASS
-P12-1 = RESPONSIBILITY MAP ACTIVE
+P12-1 = CLOSED/PASS
+P12-2 = FIRST VERTICAL CONTRACT ACTIVE
 historical D01-D50 = reference only
 I01 = OPEN / admission default OFF
-implementation mutation = NOT STARTED
-NEXT = inspect current packaged payload -> responsibility map -> exact adapter seam -> first vertical implementation gate
+implementation source mutation = NOT STARTED
+NEXT = pin first vertical Desktop/Luna contract -> define mutation gate -> only then implement
 ```
