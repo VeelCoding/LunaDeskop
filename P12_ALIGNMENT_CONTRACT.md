@@ -1,7 +1,7 @@
 # Luna Desktop P12 Alignment Contract
 
 Date: 2026-10-16
-Status: ACTIVE / P12 STARTED / P12-0 BASELINE LOCKED / P12-1 CLOSED/PASS / P12-2 FIRST VERTICAL DESIGN CLOSED / IMPLEMENTATION HOLD ACTIVE
+Status: ACTIVE / P12 STARTED / CURRENT BASELINE LOCKED / P12-1 CLOSED/PASS / P12-2 FIRST VERTICAL DESIGN CLOSED / IMPLEMENTATION HOLD ACTIVE
 
 This document is the canonical Git-side starting contract for the Luna Desktop P12 line. It prevents obsolete Desktop assumptions from becoming current truth.
 
@@ -13,25 +13,37 @@ Canonical local packaged-product evidence tree = C:\Users\istem\Projects\LunaDes
 Previous Desktop repository = VeelCoding/Luna-Deskop-v0.1 (SUPERSEDED / DO NOT AUTO-RESUME)
 ```
 
-The local Desktop workspace was refreshed from the 2026-10-14 ChatGPT/Codex Desktop generation. It is a packaged AppX/MSIX-style product tree, not a Git checkout.
+The local Desktop workspace is a packaged AppX/MSIX-style product tree, not a Git checkout.
 
-P12-0 baseline identity is CLOSED/PASS. Exact lock evidence is in `P12_BASELINE_LOCK.md`.
-
-Primary locked package tuple:
+Current locked package tuple:
 
 ```text
-OpenAI.Codex 26.1007.9446.0 x64
-AppxManifest SHA256 = 631AA3A829CF29990652808050EE824A5ADE2A20C98C1DE99924670E29AFE838
-AppxBlockMap SHA256 = 755F6A8A0B55CFAA33604C7CB0EA1F957C2882790550D7EB333B8687747E37B4
-app/ChatGPT.exe SHA256 = EE785AEC9FF3058AFB01069A8B455FB17E46F3C33611A867EFD3DB37DE1F05F3
-app/resources/app.asar SHA256 = 356C13DC715816436FA1CF31E9F77863F62EA7B7CACC465B397313246EB29325
-app/resources/codex-command-runner.exe SHA256 = BDF5160289BC4D64BC2FA38C43F9679558B3A4386226ADC66A0AF741E41424B7
-source/config tree SHA256 = 51B7E2ACE9D2FBA7B73DFF1BD0A9B99CF8EB42B47C451F38B2215D31233CC3C9
+OpenAI.Codex 26.1013.3656.0 x64
+AppxManifest SHA256 = A4696F89A28E40F200893B6EC73E6BFCE955143FB5F265CAFA0D189409E2F4B1
+AppxBlockMap SHA256 = 74C54A88CE5DC8383B7247255FE1BFA5EDF3857850204B8F8F4112AD3125266C
+app/ChatGPT.exe SHA256 = 28D75915964E3BF43F2A4AE568F7C78C51E5955FE36970BDECB6332E64E4C3DE
+app/resources/app.asar SHA256 = 163A18C84DB57AD5C50222B313DC4D11D45FEBC03EC065B516BA9F0380F2EB3F
+app/resources/codex-command-runner.exe SHA256 = 0DE2B882D1F763ECDF4FCC3873FEC18DDCF20646B6291DAC54D33A9F9116D4C4
+app/resources/codex.exe SHA256 = 9ECB9DF2ECAFCC00542EF0966C6F1737A81397DC9531B0A4B178238E2BF4A46D
+ASAR header JSON SHA256 = 2950AEC8BA63FB2B905A208C7DE22F9692D7EF2D66E658162DAFFEBCCD6A509E
+source/config V3 SHA256 = 3F60F1459DF150B6F4871762E7D9829E8E4C6DAA64ACC57595CC968C45D74D70
 ```
 
-`app/resources/default_app/` remains classified as visible Electron default/fallback material, not the product authority/bootstrap owner.
+Current ASAR product identity:
 
-Historical 2026-09-30 Desktop source and D01-D50 archaeology are evidence only, not current source truth.
+```text
+name = openai-codex-electron
+version = 26.1013.31256
+main = .vite/build/early-bootstrap.js
+```
+
+The previous OpenAI.Codex 26.1007.9446.0 package is retained as historical locked evidence only and is superseded as current source truth.
+
+Exact lock evidence is in `P12_BASELINE_LOCK.md`.
+
+`app/resources/default_app/` remains visible Electron default/fallback material, not the product authority/bootstrap owner.
+
+Historical 2026-09-30 Desktop source and D01-D50 archaeology remain reference evidence only.
 
 ## 2. Truth order
 
@@ -85,11 +97,11 @@ Desktop action -> Luna request
 Luna event/state -> Desktop projection
 ```
 
-The adapter must not mint independent task, execution, approval, replay/resend, cancellation, or recovery authority.
+The adapter must not mint independent task, execution, approval, replay/resend, cancellation, recovery, or final-result authority.
 
 ## 6. P12-1 closed responsibility map
 
-Exact current route:
+Exact current route remains:
 
 ```text
 renderer
@@ -124,7 +136,7 @@ A and B may remain or be minimally adapted when they do not duplicate Luna autho
 
 Responsibilities are not files. Current packaged bundles co-locate B and C behavior.
 
-P12-1 closure evidence:
+Original P12-1 closure evidence remains valid, and the 26.1013 refresh revalidated the same responsibility model against the new exact package generation.
 
 ```text
 P12_1A_ASAR_MAP_V3 = PASS
@@ -133,24 +145,53 @@ P12_1C_EXACT_ROUTER_REQUEST_OWNER_V1 = PASS
 P12_1D_RENDERER_VERTICAL_LIFECYCLE_SCAN_V1 = PASS
 P12_1E_REQUEST_DELIVERY_APPROVAL_STATE_MACHINE_V2 = PASS
 P12_1_RESPONSIBILITY_MAP = CLOSED_PASS
+P12_NEW_BUILD_SEMANTIC_REVALIDATION = CLOSED_PASS
 ```
 
-## 7. Critical current semantic findings
+## 7. Current package refresh / semantic revalidation
 
-Current Desktop explicitly separates known not-sent states from outcome-unknown/unconfirmed states for effect-bearing operations.
+The package update from 26.1007.9446.0 to 26.1013.3656.0 changed all previously tracked hashed owner bundle identities. New current owners were rediscovered read-only and semantic discriminants were revalidated.
+
+Current high-value owners include:
 
 ```text
-NOT_SENT != OUTCOME_UNKNOWN
-UNKNOWN != safe replay
+.vite/build/application-network-startup-DB1VeU3v.js
+.vite/build/bootstrap-cdWF4rWM.js
+.vite/build/main-C4DYk222.js
+.vite/build/preload.js
+.vite/build/src-DsLVGakC.js
+.vite/build/src-Dtwb7yKT.js
+webview/assets/app-initial-df84a35d942d.js
+webview/assets/app-primary-2525363b0384.js
+webview/assets/app-shared-2f18b1632f37.js
 ```
 
-Current approval UI translates user choice to app-server reply methods; authoritative request resolution is separately observed through server/app-server notifications.
+Revalidated invariants:
 
-Current interrupt logic sends `turn/interrupt` but also performs local cleanup and local state mutation. Under P12, neither local cleanup nor local state mutation may mint Luna cancellation/final truth.
+```text
+IPC topology = EVIDENCED
+main bridge topology = EVIDENCED
+transport coverage = 4/4
+required semantic signals = 11/11
+effect-bearing set = 8/8
+NOT_SENT != OUTCOME_UNKNOWN
+UNKNOWN != safe replay
+mcp-request-abandon != cancellation completion
+mcp-request-abandon != remote quiescence
+local interrupt cleanup/state mutation != authoritative cancellation/final truth
+```
+
+Therefore:
+
+```text
+P12-1 new-build revalidation = CLOSED_PASS
+P12-2 first-vertical design = REMAINS VALID
+P12-2 reopen due to package update = NOT_REQUIRED
+```
 
 ## 8. First integration slice / P12-2
 
-P12-2 first-vertical design is now CLOSED. Its read-only contract construction chain completed without source mutation.
+P12-2 first-vertical design is CLOSED. Its contract construction chain completed without implementation source mutation.
 
 Target lifecycle:
 
@@ -178,26 +219,30 @@ The design contract is closed, but implementation release is not granted.
 
 ### D1 — I01 authority dependency
 
+Current narrow dependency state:
+
 ```text
 I01 general acceptance = OPEN
-owner observation -> authoritative outcome/operations read-path acceptance = NOT_ESTABLISHED
+owner observation -> authorized outcome/operations read-path binding = ESTABLISHED / ACCEPTED FOR NARROW LOCAL OWNER SCOPE
+exact queue-attempt / resource-lease binding = OPEN
 admission default = OFF / explicit opt-in / fail-closed
 P12 D1 release input = BLOCKED
 ```
 
-Required release evidence:
+The accepted narrow binding does not establish completion, quiescence, replay permission, resource-release authority, or general I01 closure.
+
+Required remaining release evidence includes:
 
 ```text
 I01 general acceptance = CLOSED_PASS
-owner observations explicitly bound to authorized outcome/operations read path
+narrow owner evidence remains bound to authorized outcome/operations read path
 exact origin/scope preserved
+specific queue attempt/resource lease correlation accepted where required
 BODY_EXITED != completion
 BODY_EXITED != global quiescence
 BODY_EXITED != replay/resend permission
 admission remains explicit opt-in / fail-closed
 ```
-
-Mere co-existence of BODY_ENTERED/BODY_EXITED records, `observe_outcome`, and Desktop `status` is not sufficient evidence of this binding.
 
 ### D2 — exact-call approval product bridge
 
@@ -249,11 +294,11 @@ Plugin support remains additive/deferred. Core Desktop/Luna connectivity must no
 ## 11. Current P12 phase
 
 ```text
-P12-0 = CLOSED/PASS — locked packaged baseline identity
-P12-1 = CLOSED/PASS — current product responsibility map + exact adapter seam
-P12-2 first vertical design = CLOSED
+P12-0 current baseline = CLOSED/PASS — OpenAI.Codex 26.1013.3656.0 locked
+P12-1 = CLOSED/PASS — responsibility map + exact adapter seam revalidated against current package
+P12-2 first vertical design = CLOSED / REMAINS VALID
 P12-2F release-input contract = PINNED / HOLD_PASS
-D1 I01 release input = BLOCKED
+D1 I01 release input = BLOCKED (narrow read-path binding advanced; general release not cleared)
 D2 exact-call product bridge release input = BLOCKED
 implementation hold = ACTIVE
 implementation authorization = NOT_GRANTED
@@ -264,7 +309,7 @@ Do not generate a new P12 archaeology/gate merely to make progress. Reevaluate o
 
 ## 12. Coordination
 
-- Luna team owns aggregate Luna source history/commit/push for completed D21 MCP and its own I01 line.
+- Luna team owns aggregate Luna source history/commit/push for its I01 line.
 - `VeelCoding/LunaDeskop` is the canonical Desktop Git-side contract/history repository.
 - `C:\Users\istem\Projects\LunaDesktop` is the locked current packaged-product evidence tree.
 - Sol-B12 stores continuity and resume pointers and never outranks exact current source/runtime evidence.
@@ -276,12 +321,14 @@ Do not generate a new P12 archaeology/gate merely to make progress. Reevaluate o
 D21 MCP = FULL CLOSED/PASS
 Luna Desktop remote = VeelCoding/LunaDeskop
 Luna Desktop packaged baseline = C:\Users\istem\Projects\LunaDesktop
-package = OpenAI.Codex 26.1007.9446.0 x64
-P12-0 = CLOSED/PASS
-P12-1 = CLOSED/PASS
-P12-2 first vertical design = CLOSED
+package = OpenAI.Codex 26.1013.3656.0 x64
+app.asar = 163A18C84DB57AD5C50222B313DC4D11D45FEBC03EC065B516BA9F0380F2EB3F
+ASAR header JSON = 2950AEC8BA63FB2B905A208C7DE22F9692D7EF2D66E658162DAFFEBCCD6A509E
+P12-0 = CLOSED/PASS / CURRENT BASELINE LOCKED
+P12-1 = CLOSED/PASS / CURRENT BUILD REVALIDATED
+P12-2 first vertical design = CLOSED / REMAINS VALID
 P12-2F release-input contract = PINNED / HOLD_PASS
-D1 I01 release input = BLOCKED
+D1 I01 release input = BLOCKED; narrow authorized read-path binding accepted, remaining release evidence open
 D2 exact-call product bridge release input = BLOCKED
 I01 = OPEN / admission default OFF
 implementation hold = ACTIVE
